@@ -41,7 +41,6 @@ source $ZINIT[BIN_DIR]/zinit.zsh \
 # Install Annexes [[[
 info 'installing test dependencies'
 zinit light-mode for zdharma-continuum/zinit-annex-{'bin-gem-node','default-ice'}
-zstyle ':completion:*' rehash true
 # ]]]
 
 # vim:ft=zsh:sw=2:sts=2:et:foldmarker=[[[,]]]:foldmethod=marker
