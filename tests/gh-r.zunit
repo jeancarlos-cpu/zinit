@@ -1,7 +1,7 @@
 #!/usr/bin/env zunit
 
 @setup {
-    zinit default-ice as'null' from"gh-r" lbin nocompile nocompletions
+    zinit default-ice as'null' from"gh-r" lbin'!' nocompile
 }
 
 @test 'act' { # Run your GitHub Actions locally
