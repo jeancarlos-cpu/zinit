@@ -1,11 +1,11 @@
 #!/usr/bin/env zunit
 
 @setup {
-  zinit default-ice as'null' from"gh-r" nocompile nocompletions
+    zinit default-ice from"gh-r" silent nocompletions as'null'
 }
 
 @test 'act' { # Run your GitHub Actions locally
-  run zinit sbin"act" for @nektos/act
+  run zinit sbin for @nektos/act
   assert $state equals 0
   local act="$ZPFX/bin/act"
   assert "$act" is_executable
@@ -13,7 +13,7 @@
   assert $state equals 0
 }
 @test 'asciigraph' {
-  run zinit sbin"asciigraph" for @guptarohit/asciigraph
+  run zinit sbin for @guptarohit/asciigraph
   assert $state equals 0
   local asciigraph="$ZPFX/bin/asciigraph"
   assert "$asciigraph" is_executable
@@ -21,7 +21,7 @@
   assert $state equals 0
 }
 @test 'aurora' { # Cross-platform beanstalkd queue server admin console
-  run zinit sbin"aurora" for @xuri/aurora
+  run zinit sbin for @xuri/aurora
   assert $state equals 0
   local aurora="$ZPFX/bin/aurora"
   assert "$aurora" is_executable
@@ -35,7 +35,7 @@
 }
 @test 'bandwhich' { # Terminal bandwidth utilization tool
   [[ $OSTYPE =~ 'darwin*' ]] && skip 'Bandwhich test skipped on Darwin'
-  run zinit sbin"bandwhich" for @imsnif/bandwhich
+  run zinit sbin for @imsnif/bandwhich
   assert $state equals 0
   local bandwhich="$ZPFX/bin/bandwhich"
   assert "$bandwhich" is_executable
@@ -43,7 +43,7 @@
   assert $state equals 0
 }
 @test 'bat' {
-  run zinit sbin"**/bat -> bat" for @sharkdp/bat
+  run zinit sbin'**/**/bat' for @sharkdp/bat
   assert $state equals 0
   local bat="$ZPFX/bin/bat"
   assert "$bat" is_executable
@@ -51,7 +51,7 @@
   assert $state equals 0
 }
 @test 'bazel' { # a fast, scalable, multi-language and extensible build system
-  run zinit sbin"* -> bazel" for @bazelbuild/bazel
+  run zinit sbin'**/**/bazel' for @bazelbuild/bazel
   assert $state equals 0
   local bazel="$ZPFX/bin/bazel"
   assert "$bazel" is_executable
@@ -59,7 +59,7 @@
   assert $state equals 0
 }
 @test 'blast' { # Blast is a simple tool for API load testing and batch jobs
-  run zinit sbin"**/blast -> blast" for @dave/blast
+  run zinit sbin for @dave/blast
   assert $state equals 0
   local blast="$ZPFX/bin/blast"
   assert "$blast" is_executable
@@ -67,7 +67,7 @@
   assert $state equals 0
 }
 @test 'boilr' {
-  run zinit sbin"**/boilr -> boilr" for @tmrts/boilr
+  run zinit sbin'boilr' for @tmrts/boilr
   assert $state equals 0
   [[ $OSTYPE =~ 'darwin*' ]] \
       && assert "$output" contains 'darwin' \
@@ -78,7 +78,7 @@
   assert $state equals 0
 }
 @test 'bottom' {
-  run zinit sbin'**/btm' for ClementTsang/bottom
+  run zinit sbin for ClementTsang/bottom
   assert $state equals 0
   local bottom="$ZPFX/bin/btm"
   assert "$bottom" is_executable
@@ -109,14 +109,14 @@
   $checkmake --version
   assert $state equals 0
 }
-@test 'codeql' { # Binaries for the CodeQL CLI
-  run zinit sbin'**/codeql -> codeql' for @github/codeql-cli-binaries
-  assert $state equals 0
-  local codeql="$ZPFX/bin/codeql"
-  assert "$codeql" is_executable
-  $codeql --version
-  assert $state equals 0
-}
+# @test 'codeql' { # Binaries for the CodeQL CLI
+#   run zinit sbin'**/codeql -> codeql' for @github/codeql-cli-binaries
+#   assert $state equals 0
+#   local codeql="$ZPFX/bin/codeql"
+#   assert "$codeql" is_executable
+#   $codeql --version
+#   assert $state equals 0
+# }
 @test 'cog' {
   run zinit sbin'cog* -> cog' for replicate/cog
   assert $state equals 0
@@ -140,6 +140,11 @@
   assert "$cgapp" is_executable
   $cgapp --version
   assert $state equals 0
+}
+@test 'croc' { # Easily and securely send things from one computer to another
+  run zinit sbin'**/croc' for schollz/croc; assert $state equals 0
+  local croc="$ZPFX/bin/croc"; assert "$croc" is_executable
+  $croc --version; assert $state equals 0
 }
 @test 'csview' {
   run zinit sbin'**/csview' for wfxr/csview; assert $state equals 0
@@ -784,6 +789,11 @@
   run zinit sbin'* -> whalebrew' for whalebrew/whalebrew; assert $state equals 0
   local whalebrew="$ZPFX/bin/whalebrew"; assert "$whalebrew" is_executable
   run $whalebrew -h; assert $state equals 0
+}
+@test 'wezterm' { # A GPU-accelerated cross-platform terminal emulator and multiplexer
+  run zinit sbin'**/wezterm' for @wez/wezterm; assert $state equals 0
+  local wezterm="$ZPFX/bin/wezterm"; assert "$wezterm" is_executable
+  run $wezterm --version; assert $state equals 0
 }
 @test 'wifiqr' { # Create a QR code with your Wi-Fi login details
   run zinit sbin'* -> wifiqr' for reugn/wifiqr; assert $state equals 0

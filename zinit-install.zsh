@@ -1480,7 +1480,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
 
         # filter .deb packages if dpkg-deb present
         if (( $#list > 1 && ${+commands[dpkg-deb]} == 1 )) {
-            list2=( ${(M)list[@]:#*deb(#e)} )
+            list2=( ${(M)list[@]:#*(?64)*deb(#e)} )
             (( $#list2 > 0 )) && list=( ${list2[@]} )
             +zinit-message "{pre}gh-r:{msg2}including deb packages{msg}"
         } else {
@@ -1491,7 +1491,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
 
         # filter .rpm packages if redhat package manager present
         if (( $#list > 1 && ${+commands[rpm]} == 1 )) {
-            list2=( ${(M)list[@]:#*rpm(#e)} )
+            list2=( ${(M)list[@]:#*(?64)*rpm(#e)} )
             (( $#list2 > 0 )) && list=( ${list2[@]} )
             +zinit-message "{pre}gh-r:{msg2}including rpm packages{msg}"
         } else {
