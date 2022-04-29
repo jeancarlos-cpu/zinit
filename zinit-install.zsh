@@ -1479,21 +1479,25 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
         list=( ${list[@]:#*(a(ccoutrements|ppimage)|s(ha256sum|ig)|manifest|sh|(sha1|md5)sums|sha256|md5|pkg|txt)(#e)} )
 
         # filter .deb packages if dpkg-deb present
-        if (( $#list < 1 && ${+commands[dpkg-deb]} == 1 )) {
-            list2=( ${(M)list[@]:#*\.deb*} )
+        if (( $#list > 1 && ${+commands[dpkg-deb]} == 1 )) {
+            list2=( ${(M)list[@]:#*deb(#e)} )
             (( $#list2 > 0 )) && list=( ${list2[@]} )
+            +zinit-message "{pre}gh-r:{msg2}including deb packages{msg}"
         } else {
-            list2=( ${list[@]:#*\.deb*} )
+            list2=( ${list[@]:#*deb(#e)} )
             (( $#list2 > 0 )) && list=( ${list2[@]} )
+            +zinit-message "{pre}gh-r:{msg2}removed deb packages{msg}"
         }
 
         # filter .rpm packages if redhat package manager present
-        if (( $#list < 1 && ${+commands[rpm]} == 1 )) {
-            list2=( ${(M)list[@]:#*\.rpm*} )
+        if (( $#list > 1 && ${+commands[rpm]} == 1 )) {
+            list2=( ${(M)list[@]:#*rpm(#e)} )
             (( $#list2 > 0 )) && list=( ${list2[@]} )
+            +zinit-message "{pre}gh-r:{msg2}including rpm packages{msg}"
         } else {
-            list2=( ${list[@]:#*\.rpm*} )
+            list2=( ${list[@]:#*rpm(#e)} )
             (( $#list2 > 0 )) && list=( ${list2[@]} )
+            +zinit-message "{pre}gh-r:{msg2}removed rpm packages{msg}"
         }
 
         # filter .apk packages if anbox present
@@ -1502,7 +1506,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
         } else {
             list2=( ${list[@]:#(#i)*${~matchstr[android]}*} )
         }
-        (( $#list2 > 0 )) && list=( ${list2[@]} )
+        # (( $#list2 > 0 )) && list=( ${list2[@]} )
 
         # filter urls by os (e.g., darwin, linux, windows)
         if (( $#list > 1 )) {
