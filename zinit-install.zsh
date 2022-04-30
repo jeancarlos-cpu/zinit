@@ -1483,27 +1483,27 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
             list2=( ${list[@]:#(#i)*${~matchstr[android]}*} )
         }
 
-        # filter .deb packages if dpkg-deb present
-        if (( $#list > 1 && ${+commands[dpkg-deb]} == 1 )) {
-            list2=( ${(M)list[@]:#(#i)*(?64)*deb(#e)} )
-            (( $#list2 > 0 )) && list=( ${list2[@]} )
-            +zinit-message "{pre}gh-r:{msg2}including deb packages{msg}"
-        } else {
-            list2=( ${list[@]:#*deb(#e)} )
-            (( $#list2 > 0 )) && list=( ${list2[@]} )
-            +zinit-message "{pre}gh-r:{msg2}removed deb packages{msg}"
-        }
-
-        # filter .rpm packages if redhat package manager present
-        if (( $#list > 1 && ${+commands[rpm]} == 1 )) {
-            list2=( ${(M)list[@]:#(#i)*(?64)*rpm(#e)} )
-            (( $#list2 > 0 )) && list=( ${list2[@]} )
-            +zinit-message "{pre}gh-r:{msg2}including rpm packages{msg}"
-        } else {
-            list2=( ${list[@]:#*rpm(#e)} )
-            (( $#list2 > 0 )) && list=( ${list2[@]} )
-            +zinit-message "{pre}gh-r:{msg2}removed rpm packages{msg}"
-        }
+        # # filter .deb packages if dpkg-deb present
+        # if (( $#list > 1 && ${+commands[dpkg-deb]} == 1 )) {
+        #     list2=( ${(M)list[@]:#(#i)*(?64)*deb(#e)} )
+        #     (( $#list2 > 0 )) && list=( ${list2[@]} )
+        #     +zinit-message "{pre}gh-r:{msg2}including deb packages{msg}"
+        # } else {
+        #     list2=( ${list[@]:#*deb(#e)} )
+        #     (( $#list2 > 0 )) && list=( ${list2[@]} )
+        #     +zinit-message "{pre}gh-r:{msg2}removed deb packages{msg}"
+        # }
+        #
+        # # filter .rpm packages if redhat package manager present
+        # if (( $#list > 1 && ${+commands[rpm]} == 1 )) {
+        #     list2=( ${(M)list[@]:#(#i)*(?64)*rpm(#e)} )
+        #     (( $#list2 > 0 )) && list=( ${list2[@]} )
+        #     +zinit-message "{pre}gh-r:{msg2}including rpm packages{msg}"
+        # } else {
+        #     list2=( ${list[@]:#*rpm(#e)} )
+        #     (( $#list2 > 0 )) && list=( ${list2[@]} )
+        #     +zinit-message "{pre}gh-r:{msg2}removed rpm packages{msg}"
+        # }
 
         # (( $#list2 > 0 )) && list=( ${list2[@]} )
 

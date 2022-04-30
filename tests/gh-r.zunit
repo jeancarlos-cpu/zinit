@@ -46,7 +46,7 @@
   $blast --dry; assert $state equals 0
 }
 @test 'boilr' {
-  run zinit for @tmrts/boilr
+  run zinit id-as'boilr' for @tmrts/boilr
   assert $state equals 0
   [[ $OSTYPE =~ 'darwin*' ]] \
       && assert "$output" contains 'darwin' \
@@ -84,6 +84,7 @@
 #   $codeql --version
 #   assert $state equals 0
 # }
+
 @test 'cog' {
   run zinit for replicate/cog; assert $state equals 0
   local cog="$ZPFX/bin/cog"; assert "$cog" is_executable
@@ -106,7 +107,7 @@
   assert $state equals 0
 }
 @test 'croc' { # Easily and securely send things from one computer to another
-  run zinit for schollz/croc; assert $state equals 0
+  run zinit id-as'croc' for schollz/croc; assert $state equals 0
   local croc="$ZPFX/bin/croc"; assert "$croc" is_executable
   $croc --version; assert $state equals 0
 }
@@ -309,7 +310,7 @@
   $insect help; assert $state equals 0
 }
 @test 'jq' { # Command-line JSON processor
-  run zinit for stedolan/jq; assert $state equals 0
+  run zinit id-as'jq' for stedolan/jq; assert $state equals 0
   local jq="$ZPFX/bin/jq"; assert "$jq" is_executable
   $jq --version; assert $state equals 0
 }
@@ -400,10 +401,10 @@
   local navi="$ZPFX/bin/navi" && assert "$navi" is_executable
   $navi --version && assert $state equals 0
 }
-@te;st 'neovim' { run zinit for neovim/neovim
-  assert $state eq;uals 0 local nvim="$ZPFX/bin/nvim"
-  assert "$nvim" is_execu;table $nvim --version
-  assert $state equals 0
+@test 'neovim' {
+  run zinit id-as'nvim' for neovim/neovim; assert $state eq;uals 0
+  local nvim="$ZPFX/bin/nvim"; assert "$nvim" is_executable;
+  $nvim --version; assert $state equals 0
 }
 @test 'onefetch' {
   run zinit for o2sh/onefetch; assert $state equals 0
