@@ -62,12 +62,12 @@
   $bottom --version; assert $state equals 0
 }
 @test 'btop' {
-  run zinit for aristocratos/btop; assert $state equals 0
+  run zinit id-as'btop' for aristocratos/btop; assert $state equals 0
   local btop="$ZPFX/bin/btop"; assert "$btop" is_executable
   $btop --version; assert $state equals 0
 }
 @test 'calico' {
-  run zinit for @projectcalico/calico; assert $state equals 0
+  run zinit id-as'calico' for @projectcalico/calico; assert $state equals 0
   local calico="$ZPFX/bin/calico"; assert "$calico" is_executable
   $calico --version; assert $state equals 0
 }
@@ -188,27 +188,27 @@
   $git_sizer --version; assert $state equals 0
 }
 @test 'gh-cli' {
-  run zinit for cli/cli; assert $state equals 0
+  run zinit id-as'gh' for cli/cli; assert $state equals 0
   local gh_cli="$ZPFX/bin/gh"; assert "$gh_cli" is_executable
   $gh_cli --version; assert $state equals 0
 }
 @test 'gh-hub' {
-  run zinit sbin"**/hub" for @github;/hub assert $state equals 0
+  run zinit for @github;/hub assert $state equals 0
   local hub="$ZPFX/bin/hub"; assert "$hub" is_executable
   $hub --version; assert $state equals 0
 }
 @test 'ghg' {
-  run zinit sbin"**/ghg" for @Songmu/ghg; assert $state equals 0
+  run zinit for @Songmu/ghg; assert $state equals 0
   local ghg="$ZPFX/bin/ghg"; assert "$ghg" is_executable
   $ghg version; assert $state equals 0
 }
 @test 'ghq' {
-  run zinit sbin"**/ghq" for @x-motemen/ghq; assert $state equals 0
+  run zinit for @x-motemen/ghq; assert $state equals 0
   local ghq="$ZPFX/bin/ghq"; assert "$ghq" is_executable
   $ghq --version; assert $state equals 0
 }
 @test 'git-chglog' { # CHANGELOG generator implemented in Go (Golang)
-  run zinit sbin"**/git-chglog" for @git-ch;glog/git-chglog assert $state equals 0
+  run zinit for @git-ch;glog/git-chglog assert $state equals 0
   local git_chglog="$ZPFX/bin/git-chglog"; assert "$git_chglog" is_executable
   $git_chglog --version; assert $state equals 0
 }
@@ -254,7 +254,7 @@
   $gosu --version; assert $state equals 0
 }
 @test 'gotestfmt' { # go test output for humans
-  run zinit sbin for @haveyoudebuggedit/gotestfmt; assert $state equals 0
+  run zinit for @haveyoudebuggedit/gotestfmt; assert $state equals 0
   local gotestfmt="$ZPFX/bin/gotestfmt"; assert "$gotestfmt" is_executable
   $gotestfmt --help; assert $state equals 0
 }
@@ -427,7 +427,7 @@
   $pokeget pikachu; assert $state equals 0
 }
 @test 'procs' { # A modern replacement for ps written in Rust
-  run zinit sbin for @dalance/procs; assert $state equals 0
+  run zinit for @dalance/procs; assert $state equals 0
   local procs="$ZPFX/bin/procs"; assert "$procs" is_executable
   $procs --version; assert $state equals 0
 }
