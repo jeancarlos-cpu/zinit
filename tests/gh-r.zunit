@@ -2,47 +2,52 @@
 
 @setup {
     zinit default-ice as'null' from"gh-r" lbin'!' nocompile
+    ZBIN="${ZPFX}/bin"
 }
 
-@test 'act' { # Run your GitHub Actions locally
-  run zinit for @nektos/act; assert $state equals 0
-  local act="$ZPFX/bin/act"; assert "$act" is_executable
-  $act --version; assert $state equals 0
+is_zero() {
+    assert $1 equals 0
+}
+
+@test 'act' { # Run your GitHub Actionsly
+  run zinit for @nektos/act; is_zero $state
+  act="$ZBIN/act"; assert $act is_executable
+  $act --version; is_zero $state
 }
 @test 'asciigraph' {
-  run zinit for @guptarohit/asciigraph; assert $state equals 0
-  local asciigraph="$ZPFX/bin/asciigraph"; assert "$asciigraph" is_executable
-  $asciigraph --help; assert $state equals 0
+  run zinit for @guptarohit/asciigraph; is_zero $state
+  asciigraph="$ZBIN/asciigraph"; assert "$asciigraph" is_executable
+  $asciigraph --help; is_zero $state
 }
 @test 'aurora' { # Cross-platform beanstalkd queue server admin console
-  run zinit for @xuri/aurora; assert $state equals 0
-  local aurora="$ZPFX/bin/aurora"; assert "$aurora" is_executable
-  $aurora -v; assert $state equals 0
+  run zinit for @xuri/aurora;is_zero $state
+  aurora="$ZBIN/aurora"; assert "$aurora" is_executable
+  $aurora -v; is_zero $state
 }
 @test 'atuin' { #  Magical shell history
   run zinit for @ellie/atuin; assert $state equals 0
-  local atuin="$ZPFX/bin/atuin"; assert "$atuin" is_executable
+  atuin="$ZBIN/atuin"; assert "$atuin" is_executable
   $atuin --version; assert $state equals 0
 }
 @test 'bandwhich' { # Terminal bandwidth utilization tool
   [[ $OSTYPE =~ 'darwin*' ]] && skip 'Bandwhich test skipped on Darwin'
   run zinit for @imsnif/bandwhich; assert $state equals 0
-  local bandwhich="$ZPFX/bin/bandwhich"; assert "$bandwhich" is_executable
+  bandwhich="$ZBIN/bandwhich"; assert "$bandwhich" is_executable
   $bandwhich --help; assert $state equals 0
 }
 @test 'bat' {
   run zinit for @sharkdp/bat; assert $state equals 0
-  local bat="$ZPFX/bin/bat"; assert "$bat" is_executable
+  bat="$ZBIN/bat"; assert "$bat" is_executable
   $bat --version; assert $state equals 0
 }
 @test 'bazel' { # a fast, scalable, multi-language and extensible build system
   run zinit for @bazelbuild/bazel; assert $state equals 0
-  local bazel="$ZPFX/bin/bazel"; assert "$bazel" is_executable
+  bazel="$ZBIN/bazel"; assert "$bazel" is_executable
   $bazel --version; assert $state equals 0
 }
 @test 'blast' { # Blast is a simple tool for API load testing and batch jobs
   run zinit for @dave/blast; assert $state equals 0
-  local blast="$ZPFX/bin/blast"; assert "$blast" is_executable
+  blast="$ZBIN/blast"; assert "$blast" is_executable
   $blast --dry; assert $state equals 0
 }
 @test 'boilr' {
@@ -51,35 +56,35 @@
   [[ $OSTYPE =~ 'darwin*' ]] \
       && assert "$output" contains 'darwin' \
       && pass
-  local boilr="$ZPFX/bin/boilr"
+  boilr="$ZBIN/boilr"
   assert "$boilr" is_executable
   $boilr --help
   assert $state equals 0
 }
 @test 'bottom' {
   run zinit id-as'btm' for ClementTsang/bottom; assert $state equals 0
-  local bottom="$ZPFX/bin/btm"; assert "$bottom" is_executable
+  bottom="$ZBIN/btm"; assert "$bottom" is_executable
   $bottom --version; assert $state equals 0
 }
 @test 'btop' {
   run zinit id-as'btop' for aristocratos/btop; assert $state equals 0
-  local btop="$ZPFX/bin/btop"; assert "$btop" is_executable
+  btop="$ZBIN/btop"; assert "$btop" is_executable
   $btop --version; assert $state equals 0
 }
 @test 'calico' {
   run zinit id-as'calico' for @projectcalico/calico; assert $state equals 0
-  local calico="$ZPFX/bin/calico"; assert "$calico" is_executable
+  calico="$ZBIN/calico"; assert "$calico" is_executable
   $calico --version; assert $state equals 0
 }
 @test 'checkmake' { # experimental linter/analyzer for Makefiles
   run zinit for mrtazz/checkmake; assert $state equals 0
-  local checkmake="$ZPFX/bin/checkmake"; assert "$checkmake" is_executable
+  checkmake="$ZBIN/checkmake"; assert "$checkmake" is_executable
   $checkmake --version; assert $state equals 0
 }
 # @test 'codeql' { # Binaries for the CodeQL CLI
 #   run zinit for @github/codeql-cli-binaries
 #   assert $state equals 0
-#   local codeql="$ZPFX/bin/codeql"
+#   codeql="$ZBIN/codeql"
 #   assert "$codeql" is_executable
 #   $codeql --version
 #   assert $state equals 0
@@ -87,12 +92,12 @@
 
 @test 'cog' {
   run zinit for replicate/cog; assert $state equals 0
-  local cog="$ZPFX/bin/cog"; assert "$cog" is_executable
+  cog="$ZBIN/cog"; assert "$cog" is_executable
   $cog --version; assert $state equals 0
 }
 @test 'compress' { # Optimized Go Compression Packages
   run zinit for klauspost/compress; assert $state equals 0
-  local compress="$ZPFX/bin/s2c"; assert "$compress" is_executable
+  compress="$ZBIN/s2c"; assert "$compress" is_executable
   $compress --help; assert $state equals 0
 }
 @test 'create-go-app' { # Create a new production-ready project with backend, frontend and deploy automation by running one CLI command
@@ -101,472 +106,472 @@
   [[ $OSTYPE =~ 'darwin*' && $(uname -p) == 'arm' ]] \
       && assert "$output" contains 'macOS' \
       && pass
-  local cgapp="$ZPFX/bin/cgapp"
+  cgapp="$ZBIN/cgapp"
   assert "$cgapp" is_executable
   $cgapp --version
   assert $state equals 0
 }
 @test 'croc' { # Easily and securely send things from one computer to another
   run zinit id-as'croc' for schollz/croc; assert $state equals 0
-  local croc="$ZPFX/bin/croc"; assert "$croc" is_executable
+  croc="$ZBIN/croc"; assert "$croc" is_executable
   $croc --version; assert $state equals 0
 }
 @test 'csview' {
   run zinit for wfxr/csview; assert $state equals 0
-  local csview="$ZPFX/bin/csview"; assert "$csview" is_executable
+  csview="$ZBIN/csview"; assert "$csview" is_executable
   $csview --version; assert $state equals 0
 }
 @test 'delta' {
   run zinit for @dandavison/delta; assert $state equals 0
-  local delta="$ZPFX/bin/delta"; assert "$delta" is_executable
+  delta="$ZBIN/delta"; assert "$delta" is_executable
   $delta --version; assert $state equals 0
 }
 @test 'dive' {
   run zinit for @wagoodman/dive; assert $state equals 0
-  local dive="$ZPFX/bin/dive"; assert "$dive" is_executable
+  dive="$ZBIN/dive"; assert "$dive" is_executable
   $dive --version; assert $state equals 0
 }
 @test 'dua' { # View disk space usage and delete unwanted data, fast.
   run zinit for @Byron/dua-cli; assert $state equals 0
-  local dua="$ZPFX/bin/dua"; assert "$dua" is_executable
+  dua="$ZBIN/dua"; assert "$dua" is_executable
   $dua --version; assert $state equals 0
 }
 @test 'duci' { # The simple ci server
   run zinit for @duck8823/duci; assert $state equals 0
-  local duci="$ZPFX/bin/duci"; assert "$duci" is_executable
+  duci="$ZBIN/duci"; assert "$duci" is_executable
   $duci --help; assert $state equals 0
 }
 @test 'dust' { # A more intuitive version of du in rust
   run zinit for @bootandy/dust; assert $state equals 0
-  local dust="$ZPFX/bin/dust"; assert "$dust" is_executable
+  dust="$ZBIN/dust"; assert "$dust" is_executable
   $dust --version; assert $state equals 0
 }
 @test 'dyff' { # diff tool for YAML files, and sometimes JSON
   run zinit for @homeport/dyff; assert $state equals 0
-  local dyff="$ZPFX/bin/dyff"; assert "$dyff" is_executable
+  dyff="$ZBIN/dyff"; assert "$dyff" is_executable
   $dyff version; assert $state equals 0
 }
 @test 'exa' {
   run zinit for ogham/exa; assert $state equals 0
-  local exa="$ZPFX/bin/exa"; assert "$exa" is_executable
+  exa="$ZBIN/exa"; assert "$exa" is_executable
   $exa --version; assert $state equals 0
 }
 @test 'fd' {
   run zinit for @sharkdp/fd; assert $state equals 0
-  local fd="$ZPFX/bin/fd"; assert "$fd" is_executable
+  fd="$ZBIN/fd"; assert "$fd" is_executable
   $fd version; assert $state equals 0
 }
 @test 'fogg' { # Manage Infrastructure as Code with less pain
   run zinit for @chanzuckerberg/fogg; assert $state equals 0
-  local fogg="$ZPFX/bin/fogg"; assert "$fogg" is_executable
+  fogg="$ZBIN/fogg"; assert "$fogg" is_executable
   $fogg version; assert $state equals 0
 }
 @test 'fx' {
   run zinit for @antonmedv/fx; assert $state equals 0
-  local fx="$ZPFX/bin/fx"; assert "$fx" is_executable
+  fx="$ZBIN/fx"; assert "$fx" is_executable
   $fx -v; assert $state equals 0
 }
 @test 'fzf' {
   run zinit for @junegunn/fzf; assert $state equals 0
-  local fzf="$ZPFX/bin/fzf"; assert "$fzf" is_executable
+  fzf="$ZBIN/fzf"; assert "$fzf" is_executable
   $fzf --version; assert $state equals 0
 }
 @test 'gaper' { # Builds and restarts a Go project when it crashes or some watched file changes
   [[ ! $OSTYPE =~ 'linux.*' ]] && skip 'Gaper test only ran on Linux'
   run zinit for @maxcnunes/gaper; assert $state equals 0
-  local gaper="$ZPFX/bin/gaper"; assert "$gaper" is_executable
+  gaper="$ZBIN/gaper"; assert "$gaper" is_executable
   $gaper --help; assert $state equals 0
 }
 @test 'gdu' { # Fast disk usage analyzer with console interface written in Go
   run zinit for @dundee/;gdu assert $state equals 0
-  local gdu="$ZPFX/bin/gdu"; assert "$gdu" is_executable
+  gdu="$ZBIN/gdu"; assert "$gdu" is_executable
   $gdu --version; assert $state equals 0
 }
 @test 'ggsrun' {
   run zinit for @tanaikech/ggsrun; assert $state equals 0
-  local git_sizer="$ZPFX/bin/ggsrun"; assert "$git_sizer" is_executable
+  git_sizer="$ZBIN/ggsrun"; assert "$git_sizer" is_executable
   $git_sizer --version; assert $state equals 0
 }
 @test 'gh-cli' {
   run zinit id-as'gh' for cli/cli; assert $state equals 0
-  local gh_cli="$ZPFX/bin/gh"; assert "$gh_cli" is_executable
+  gh_cli="$ZBIN/gh"; assert "$gh_cli" is_executable
   $gh_cli --version; assert $state equals 0
 }
 @test 'gh-hub' {
   run zinit for @github;/hub assert $state equals 0
-  local hub="$ZPFX/bin/hub"; assert "$hub" is_executable
+  hub="$ZBIN/hub"; assert "$hub" is_executable
   $hub --version; assert $state equals 0
 }
 @test 'ghg' {
   run zinit for @Songmu/ghg; assert $state equals 0
-  local ghg="$ZPFX/bin/ghg"; assert "$ghg" is_executable
+  ghg="$ZBIN/ghg"; assert "$ghg" is_executable
   $ghg version; assert $state equals 0
 }
 @test 'ghq' {
   run zinit for @x-motemen/ghq; assert $state equals 0
-  local ghq="$ZPFX/bin/ghq"; assert "$ghq" is_executable
+  ghq="$ZBIN/ghq"; assert "$ghq" is_executable
   $ghq --version; assert $state equals 0
 }
 @test 'git-chglog' { # CHANGELOG generator implemented in Go (Golang)
   run zinit for @git-ch;glog/git-chglog assert $state equals 0
-  local git_chglog="$ZPFX/bin/git-chglog"; assert "$git_chglog" is_executable
+  git_chglog="$ZBIN/git-chglog"; assert "$git_chglog" is_executable
   $git_chglog --version; assert $state equals 0
 }
 @test 'git-mkver' {
   run zinit for @idc101/git-mkver; assert $state equals 0
-  local git_mkver="$ZPFX/bin/git-mkver"; assert "$git_mkver" is_executable
+  git_mkver="$ZBIN/git-mkver"; assert "$git_mkver" is_executable
   $git_mkver info # use git-mkver becaus;e --version exits with 130...?  assert $state equals 0
 }
 @test 'git-sizer' {
   run zinit for @github/git-sizer; assert $state equals 0
-  local git_sizer="$ZPFX/bin/git-sizer"; assert "$git_sizer" is_executable
+  git_sizer="$ZBIN/git-sizer"; assert "$git_sizer" is_executable
   $git_sizer --version; assert $state equals 0
 }
 @test 'glow' { # Render markdown on the CLI, with pizzazz!
   run zinit for @charmbracelet/glow; assert $state equals 0
-  local git_sizer="$ZPFX/bin/glow"; assert "$git_sizer" is_executable
+  git_sizer="$ZBIN/glow"; assert "$git_sizer" is_executable
   $git_sizer --version; assert $state equals 0
 }
 @test 'go-james' { # James is your butler and helps you to create, build, debug, test and run your Go projects
   run zinit for @pieterclaerhout/go-james; assert $state equals 0
-  local git_sizer="$ZPFX/bin/go-james"; assert "$git_sizer" is_executable
+  git_sizer="$ZBIN/go-james"; assert "$git_sizer" is_executable
   $git_sizer version; assert $state equals 0
 }
 @test 'go-swagger' { # Swagger 2.0 implementation for go
   run zinit for @go-swagger/go-swagger; assert $state equals 0
-  local git_sizer="$ZPFX/bin/go-swagger"; assert "$git_sizer" is_executable
+  git_sizer="$ZBIN/go-swagger"; assert "$git_sizer" is_executable
   $git_sizer version; assert $state equals 0
 }
 @test 'gojq' { # Pure Go implementation of jq
   run zinit for @itchyny/gojq; assert $state equals 0
-  local git_sizer="$ZPFX/bin/gojq"; assert "$git_sizer" is_executable
+  git_sizer="$ZBIN/gojq"; assert "$git_sizer" is_executable
   $git_sizer --version; assert $state equals 0
 }
 @test 'gomi' { # Replacement for UNIX rm command
   run zinit for @b4b4r07/gomi; assert $state equals 0
-  local gomi="$ZPFX/bin/gomi"; assert "$gomi" is_executable
+  gomi="$ZBIN/gomi"; assert "$gomi" is_executable
   $gomi --version; assert $state equals 0
 }
 @test 'gosu' { # Simple Go-based setuid+setgid+setgroups+exec
   if [[ $OSTYPE =~ 'darwin.*' ]]; then skip 'gosu test only ran on Linux'; fi
   run zinit for @tianon/gosu; assert $state equals 0
-  local gosu="$ZPFX/bin/gosu"; assert "$gosu" is_executable
+  gosu="$ZBIN/gosu"; assert "$gosu" is_executable
   $gosu --version; assert $state equals 0
 }
 @test 'gotestfmt' { # go test output for humans
   run zinit for @haveyoudebuggedit/gotestfmt; assert $state equals 0
-  local gotestfmt="$ZPFX/bin/gotestfmt"; assert "$gotestfmt" is_executable
+  gotestfmt="$ZBIN/gotestfmt"; assert "$gotestfmt" is_executable
   $gotestfmt --help; assert $state equals 0
 }
 @test 'gothanks' { # go test output for humans
   run zinit for @psampaz/gothanks; assert $state equals 0
-  local gothanks="$ZPFX/bin/gothanks"; assert "$gothanks" is_executable
+  gothanks="$ZBIN/gothanks"; assert "$gothanks" is_executable
   $gothanks --help; assert $state equals 0
 }
 @test 'grex' { # go test output for humans
   run zinit for @pemistahl/grex; assert $state equals 0
-  local grex="$ZPFX/bin/gothanks"; assert "$grex" is_executable
+  grex="$ZBIN/gothanks"; assert "$grex" is_executable
   $grex --help; assert $state equals 0
 }
 @test 'hadolint' { # Dockerfile linter, validate inline bash, written in Haskell
   run zinit for @hadolint/hadolint; assert $state equals 0
-  local hadolint="$ZPFX/bin/hadolint"; assert "$hadolint" is_executable
+  hadolint="$ZBIN/hadolint"; assert "$hadolint" is_executable
   $hadolint --help; assert $state equals 0
 }
 @test 'heksa' { # CLI hex dumper with colors
   run zinit for @raspi/heksa; assert $state equals 0
-  local heksa="$ZPFX/bin/heksa"; assert "$heksa" is_executable
+  heksa="$ZBIN/heksa"; assert "$heksa" is_executable
   $heksa --help; assert $state equals 0
 }
 @test 'hexyl' { # CLI hex dumper with colors
   run zinit for @sharkdp/hexyl; assert $state equals 0
-  local hexyl="$ZPFX/bin/hexyl"; assert "$hexyl" is_executable
+  hexyl="$ZBIN/hexyl"; assert "$hexyl" is_executable
   $hexyl --help; assert $state equals 0
 }
 @test 'hit-on' { # Git Workflow Helper Tool
   run zinit for kowainik/hit-on; assert $state equals 0
-  local hit="$ZPFX/bin/hit"; assert "$hit" is_executable
+  hit="$ZBIN/hit"; assert "$hit" is_executable
   $hit -h; assert $state equals 0
 }
 @test 'hors' { # instant coding answers via the command line (howdoi in rust)
   ! [[ $OSTYPE =~ 'darwin*' ]] && skip 'Hors test skipped on Linux'
   run zinit for @WindSoilder/hors; assert $state equals 0
-  local hors="$ZPFX/bin/hors"; assert "$hors" is_executable
+  hors="$ZBIN/hors"; assert "$hors" is_executable
   $hors -h; assert $state equals 0
 }
 @test 'hyperfine' { # A command-line benchmarking tool
   run zinit for @sharkdp/hyperfine; assert $state equals 0
-  local hyperfine="$ZPFX/bin/hyperfine"; assert "$hyperfine" is_executable
+  hyperfine="$ZBIN/hyperfine"; assert "$hyperfine" is_executable
   $hyperfine --version; assert $state equals 0
 }
 @test 'igo' { # Improved Go Syntax (transpiler)
   run zinit for @rocketlaunchr/igo; assert $state equals 0
-  local igo="$ZPFX/bin/igo"; assert "$igo" is_executable
+  igo="$ZBIN/igo"; assert "$igo" is_executable
   $igo --help; assert $state equals 0
 }
 @test 'insect' { # High precision scientific calculator with support for physical units
   run zinit for @sharkdp/insect; assert $state equals 0
-  local insect="$ZPFX/bin/insect"; assert "$insect" is_executable
+  insect="$ZBIN/insect"; assert "$insect" is_executable
   $insect help; assert $state equals 0
 }
 @test 'jq' { # Command-line JSON processor
   run zinit id-as'jq' for stedolan/jq; assert $state equals 0
-  local jq="$ZPFX/bin/jq"; assert "$jq" is_executable
+  jq="$ZBIN/jq"; assert "$jq" is_executable
   $jq --version; assert $state equals 0
 }
 @test 'just' { # Just a command runner
   run zinit for casey/just; assert $state equals 0
-  local just="$ZPFX/bin/just"; assert "$just" is_executable
+  just="$ZBIN/just"; assert "$just" is_executable
   $just --version; assert $state equals 0
 }
 @test 'ko' {
   run zinit for google/ko; assert $state equals 0
-  local ko="$ZPFX/bin/ko"; assert "$ko" is_executable
+  ko="$ZBIN/ko"; assert "$ko" is_executable
   $ko --help; assert $state equals 0
 }
 @test 'lazygit' {
   run zinit for jesseduffield/lazygit; assert $state equals 0
-  local lazygit="$ZPFX/bin/lazygit"; assert "$lazygit" is_executable
+  lazygit="$ZBIN/lazygit"; assert "$lazygit" is_executable
   $lazygit --help; assert $state equals 0
 }
 @test 'lf' { # Terminal file manager
   run zinit for @gokcehan/lf; assert $state equals 0
-  local lf="$ZPFX/bin/lf"; assert "$lf" is_executable
+  lf="$ZBIN/lf"; assert "$lf" is_executable
   $lf --help; assert $state equals 0
 }
 @test 'lsd' { # The next gen ls command
   run zinit for Peltoche/lsd; assert $state equals 0
-  local lsd="$ZPFX/bin/lsd"; assert "$lsd" is_executable
+  lsd="$ZBIN/lsd"; assert "$lsd" is_executable
   $lsd --version; assert $state equals 0
 }
 @test 'lstf' { # The aggregated TCP flows printer in Linux
   if [[ ! $OSTYPE =~ 'linux.*' ]] && skip 'lstf test only ran on Linux'
   run zinit for yuuki/lstf assert $state equals 0
-  local lstf="$ZPFX/bin/lstf"; assert "$lstf" is_executable
+  lstf="$ZBIN/lstf"; assert "$lstf" is_executable
   $lstf --version; assert $state equals 0
 }
 @test 'mage' { # A Make/rake-like dev tool using Go
   run zinit for @magefile/mage; assert $state equals 0
-  local mage="$ZPFX/bin/mage"; assert "$mage" is_executable
+  mage="$ZBIN/mage"; assert "$mage" is_executable
   $mage --help; assert $state equals 0
 }
 @test 'mas' { # Mac App Store command line interface
   [[ ! $OSTYPE =~ 'darwin.*' ]] && skip 'mas test only ran on macOS'
   run zinit for @mas-cli/ma;s assert $state equals 0
-  local mas="$ZPFX/bin/mas"; assert "$mas" is_executable
+  mas="$ZBIN/mas"; assert "$mas" is_executable
   $mas version; assert $state equals 0
 }
 @test 'mdbook' { # Create book from markdown files. Like Gitbook but implemented in Rust
   run zinit for rust-lang/mdBook; assert $state equals 0
-  local mdbook="$ZPFX/bin/mdbook"; assert "$mdbook" is_executable
+  mdbook="$ZBIN/mdbook"; assert "$mdbook" is_executable
   $mdbook --version; assert $state equals 0
 }
 @test 'mdlt' { # A command-line utility for quick math
   run zinit for metadelta/mdlt; assert $state equals 0
-  local mdlt="$ZPFX/bin/mdlt"; assert "$mdlt" is_executable
+  mdlt="$ZBIN/mdlt"; assert "$mdlt" is_executable
   $mdlt simplify "2 + 2"; assert $state equals 0
 }
 @test 'micro' { # A modern and intuitive terminal-based text editor
   run zinit for zyedidia/micro; assert $state equals 0
-  local micro="$ZPFX/bin/micro"; assert "$micro" is_executable
+  micro="$ZBIN/micro"; assert "$micro" is_executable
   $micro --version; assert $state equals 0
 }
-@test 'mkcert' { # A simple zero-config tool to make locally trusted development certificates
+@test 'mkcert' { # A simple zero-config tool to makely trusted development certificates
   run zinit for @FiloSottile/mkcert; assert $state equals 0
-  local mkcert="$ZPFX/bin/mkcert"; assert "$mkcert" is_executable
+  mkcert="$ZBIN/mkcert"; assert "$mkcert" is_executable
   $mkcert --version; assert $state equals 0
 }
 @test 'mmake' { # A Make/rake-like dev tool using Go
   run zinit for @tj/mmake; assert $state equals 0
-  local mmake="$ZPFX/bin/mmake"; assert "$mmake" is_executable
+  mmake="$ZBIN/mmake"; assert "$mmake" is_executable
   $mmake --version; assert $state equals 0
 }
 @test 'mmv' { # rename multiple files with editor
   run zinit for @itchyny/mmv; assert $state equals 0
-  local mmv="$ZPFX/bin/mmv"; assert "$mmv" is_executable
+  mmv="$ZBIN/mmv"; assert "$mmv" is_executable
   $mmv --version; assert $state equals 0
 }
 @test 'mob' { # rename multiple files with editor
   run zinit for @remotemobprogramming/mob; assert $state equals 0
-  local mob="$ZPFX/bin/mob"; assert "$mob" is_executable
+  mob="$ZBIN/mob"; assert "$mob" is_executable
   $mob --version; assert $state equals 0
 }
 @test 'mocword' {
   run zinit for @high-moctane/mocword; assert $state equals 0
-  local mocword="$ZPFX/bin/mocword"; assert "$mocword" is_executable
+  mocword="$ZBIN/mocword"; assert "$mocword" is_executable
   $mocword --version; assert $state equals 0
 }
 @test 'navi' {
   run zinit for denisidoro/navi && assert $state equals 0
-  local navi="$ZPFX/bin/navi" && assert "$navi" is_executable
+  navi="$ZBIN/navi" && assert "$navi" is_executable
   $navi --version && assert $state equals 0
 }
 @test 'neovim' {
   run zinit id-as'nvim' for neovim/neovim; assert $state eq;uals 0
-  local nvim="$ZPFX/bin/nvim"; assert "$nvim" is_executable;
+  nvim="$ZBIN/nvim"; assert "$nvim" is_executable;
   $nvim --version; assert $state equals 0
 }
 @test 'onefetch' {
   run zinit for o2sh/onefetch; assert $state equals 0
-  local onefetch="$ZPFX/bin/onefetch"; assert "$onefetch" is_executable
+  onefetch="$ZBIN/onefetch"; assert "$onefetch" is_executable
   $onefetch --version; assert $state equals 0
 }
 @test 'peco' {
   run zinit for @peco/peco; assert $state equals 0
-  local peco="$ZPFX/bin/peco"; assert "$peco" is_executable
+  peco="$ZBIN/peco"; assert "$peco" is_executable
   $peco --version; assert $state equals 0
 }
 @test 'pmy' {
   run zinit for @relastle/pmy; assert $state equals 0
-  local pmy="$ZPFX/bin/pmy"; assert "$pmy" is_executable
+  pmy="$ZBIN/pmy"; assert "$pmy" is_executable
   $pmy --version; assert $state equals 0
 }
 @test 'pokeget' {
   run zinit for @talwat/pokeget; assert $state equals 0
-  local pokeget="$ZPFX/bin/pokeget"; assert "$pokeget" is_executable
+  pokeget="$ZBIN/pokeget"; assert "$pokeget" is_executable
   $pokeget pikachu; assert $state equals 0
 }
 @test 'procs' { # A modern replacement for ps written in Rust
   run zinit for @dalance/procs; assert $state equals 0
-  local procs="$ZPFX/bin/procs"; assert "$procs" is_executable
+  procs="$ZBIN/procs"; assert "$procs" is_executable
   $procs --version; assert $state equals 0
 }
 @test 'rare' { # Realtime regex-extraction and aggregation into common formats such as histograms, bar graphs, tables, etc.
   run zinit for @zix99/rare; assert $state equals 0
-  local rare="$ZPFX/bin/rare"; assert "$rare" is_executable
+  rare="$ZBIN/rare"; assert "$rare" is_executable
   $rare --version; assert $state equals 0
 }
 @test 'rclone' { # Realtime regex-extraction and aggregation into common formats such as histograms, bar graphs, tables, etc.
   run zinit for @rclone/rclone; assert $state equals 0
-  local rclone="$ZPFX/bin/rclone"; assert "$rclone" is_executable
+  rclone="$ZBIN/rclone"; assert "$rclone" is_executable
   $rclone --version; assert $state equals 0
 }
 @test 'reg' { # Docker registry v2 command line client and repo listing generator with security checks
   run zinit for @genuinetools/reg; assert $state equals 0
-  local reg="$ZPFX/bin/reg"; assert "$reg" is_executable
+  reg="$ZBIN/reg"; assert "$reg" is_executable
   $reg version; assert $state equals 0
 }
 @test 'rg' {
   run zinit for @BurntSushi/ripgrep; assert $state equals 0
-  local rg="$ZPFX/bin/rg"; assert "$rg" is_executable
+  rg="$ZBIN/rg"; assert "$rg" is_executable
   $rg --version; assert $state equals 0
 }
 @test 'rip' {
   run zinit for @nivekuil/rip; assert $state equals 0
-  local rip="$ZPFX/bin/rip"; assert "$rip" is_executable
+  rip="$ZBIN/rip"; assert "$rip" is_executable
   $rip --version; assert $state equals 0
 }
 @test 's' { # Open a web search in your terminal.
   run zinit for @zquestz/s; assert $state equals 0
-  local s="$ZPFX/bin/s"; assert "$s" is_executable
+  s="$ZBIN/s"; assert "$s" is_executable
   $s --version; assert $state equals 0
 }
 @test 'sd' {
   run zinit for @chmln/sd; assert $state equals 0
-  local sd="$ZPFX/bin/sd"; assert "$sd" is_executable
+  sd="$ZBIN/sd"; assert "$sd" is_executable
   $sd --version; assert $state equals 0
 }
 @test 'shellcheck' {
   run zinit for koalaman/shellcheck; assert $state equals 0
-  local shellcheck="$ZPFX/bin/shellcheck"; assert "$shellcheck" is_executable
+  shellcheck="$ZBIN/shellcheck"; assert "$shellcheck" is_executable
   $shellcheck --version; assert $state equals 0
 }
 @test 'shfmt' {
   run zinit for @mvdan/sh; assert $state equals 0
-  local shfmt="$ZPFX/bin/shfmt"; assert "$shfmt" is_executable
+  shfmt="$ZBIN/shfmt"; assert "$shfmt" is_executable
   $shfmt --version; assert $state equals 0
 }
 @test 'starship' {
   run zinit for @starship/starship; assert $state equals 0
-  local starship="$ZPFX/bin/starship"; assert "$starship" is_executable
+  starship="$ZBIN/starship"; assert "$starship" is_executable
   $starship --version; assert $state equals 0
 }
 @test 'stern' { # Multi pod and container log tailing for Kubernetes
   run zinit for @stern/stern; assert $state equals 0
-  local stern="$ZPFX/bin/stern"; assert "$stern" is_executable
+  stern="$ZBIN/stern"; assert "$stern" is_executable
   $stern --version; assert $state equals 0
 }
 @test 'tealdeer' {
   run zinit for @dbrgn/tealdeer; assert $state equals 0
-  local tealdeer="$ZPFX/bin/tealdeer"; assert "$tealdeer" is_executable
+  tealdeer="$ZBIN/tealdeer"; assert "$tealdeer" is_executable
   $tealdeer --version; assert $state equals 0
 }
 @test 'tokei' {
   run zinit for @XAMPPRocky/tokei; assert $state equals 0
-  local tokei="$ZPFX/bin/tokei"; assert "$tokei" is_executable
+  tokei="$ZBIN/tokei"; assert "$tokei" is_executable
   $tokei --version; assert $state equals 0
 }
 @test 'topgrade' { # Upgrade everything
   run zinit for @r-darwish/topgrade; assert $state equals 0
-  local topgrade="$ZPFX/bin/topgrade"; assert "$topgrade" is_executable
+  topgrade="$ZBIN/topgrade"; assert "$topgrade" is_executable
   $topgrade --version; assert $state equals 0
 }
 @test 'tre' { # Tree command, improved
   run zinit for @dduan/tre; assert $state equals 0
-  local tre="$ZPFX/bin/tre"; assert "$tre" is_executable
+  tre="$ZBIN/tre"; assert "$tre" is_executable
   $tre --version; assert $state equals 0
 }
 @test 'tv' { # A cross-platform CLI csv pretty printer that uses column styling to maximize viewer enjoyment
   run zinit for uzimaru0000/tv; assert $state equals 0
-  local tv="$ZPFX/bin/tv"; assert "$tv" is_executable
+  tv="$ZBIN/tv"; assert "$tv" is_executable
   $tv --version; assert $state equals 0
 }
 @test 'up' {
   run zinit for akavel/up; assert $state equals 0
-  local up="$ZPFX/bin/up"; assert "$up" is_executable
+  up="$ZBIN/up"; assert "$up" is_executable
   run $up -h; assert $output contains "up is the Ultimate Plumber"
 }
 @test 'v' { # Simple, fast, safe, compiled language for developing maintainable software
   run zinit for vlang/v; assert $state equals 0
-  local v="$ZPFX/bin/v"; assert "$v" is_executable
+  v="$ZBIN/v"; assert "$v" is_executable
   run $v version; assert $state equals 0
 }
 @test 'volta' { # JS Toolchains as Code
   ! [[ $OSTYPE =~ 'darwin.*' ]] && skip 'Volta test only ran on macOS'
   run zinit for volta-cli/volta; assert $state equals 0
-  local volta="$ZPFX/bin/volta"; assert "$volta" is_executable
+  volta="$ZBIN/volta"; assert "$volta" is_executable
   $volta --version; assert $state equals 0
 }
 @test 'whalebrew' {
   run zinit for whalebrew/whalebrew; assert $state equals 0
-  local whalebrew="$ZPFX/bin/whalebrew"; assert "$whalebrew" is_executable
+  whalebrew="$ZBIN/whalebrew"; assert "$whalebrew" is_executable
   run $whalebrew -h; assert $state equals 0
 }
 @test 'wezterm' { # A GPU-accelerated cross-platform terminal emulator and multiplexer
   run zinit for @wez/wezterm; assert $state equals 0
-  local wezterm="$ZPFX/bin/wezterm"; assert "$wezterm" is_executable
+  wezterm="$ZBIN/wezterm"; assert "$wezterm" is_executable
   run $wezterm --version; assert $state equals 0
 }
 @test 'wifiqr' { # Create a QR code with your Wi-Fi login details
   run zinit for reugn/wifiqr; assert $state equals 0
-  local wifiqr="$ZPFX/bin/wifiqr"; assert "$wifiqr" is_executable
+  wifiqr="$ZBIN/wifiqr"; assert "$wifiqr" is_executable
   run $wifiqr -h; assert $state equals 0
 }
 @test 'xh' { # Friendly and fast tool for sending HTTP requests
   run zinit for @ducaale/xh; assert $state equals 0
-  local xh="$ZPFX/bin/xh"; assert "$xh" is_executable
+  xh="$ZBIN/xh"; assert "$xh" is_executable
   run $xh --version; assert $state equals 0
 }
 @test 'yabai' { # A tiling window manager for macOS based on binary space partitioning
   ! [[ $OSTYPE =~ 'darwin*' ]] && skip 'Yabai test skipped on Linux'
   run zinit for koekeishiya/yabai; assert $state equals 0
-  local yabai="$ZPFX/bin/yabai"; assert "$yabai" is_executable
+  yabai="$ZBIN/yabai"; assert "$yabai" is_executable
   $yabai --version; assert $state equals 0
 }
 @test 'yq' { # a portable command-line YAML, JSON and XML processor
   run zinit for @mikefarah/yq; assert $state equals 0
-  local yq="$ZPFX/bin/yq"; assert "$yq" is_executable
+  yq="$ZBIN/yq"; assert "$yq" is_executable
   run $yq --version; assert $state equals 0
 }
 @test 'zed' { # Tooling for super-structured data: a new and easier way to manipulate data
   run zinit for @brimdata/zed; assert $state equals 0
-  local zed="$ZPFX/bin/zed"; assert "$zed" is_executable
+  zed="$ZBIN/zed"; assert "$zed" is_executable
   run $zed --version; assert $state equals 0
 }
 @test 'zoxide' { # A smarter cd command
-  run zinit for @ajeetdsouza/zoxide; assert $state equals 0
-  local zoxide="$ZPFX/bin/zoxide"; assert "$zoxide" is_executable
-  $zoxide --version; assert $state equals 0
+  run zinit  for       @ajeetdsouza/zoxide; assert $state equals 0
+  zoxide="$ZBIN/zoxide"; assert "$zoxide" is_executable
+  $zoxide                --version; assert    $state equals 0
 }
 
 # vim:ft=zsh:sw=4:sts=4:et:foldmarker={,}:foldmethod=marker
