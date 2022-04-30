@@ -1,13 +1,12 @@
 #!/usr/bin/env zunit
 
+
 @setup {
     zinit default-ice as'null' from"gh-r" lbin'!' nocompile
     ZBIN="${ZPFX}/bin"
+    is_zero() { assert $1 equals 0; }
 }
 
-is_zero() {
-    assert $1 equals 0
-}
 
 @test 'act' { # Run your GitHub Actionsly
   run zinit for @nektos/act; is_zero $state
