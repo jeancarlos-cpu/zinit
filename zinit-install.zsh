@@ -1474,7 +1474,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
 
         if [[ -n $bpick ]] { list=( ${(M)list[@]:#(#i)*/$~bpick} ) }
 
-        list=( ${list[@]:#*(a(ccoutrements|ppimage)|s(ha256sum|ig)|manifest|sh|(sha1|md5)sums|sha256|md5|pkg|txt)(#e)} )
+        list=( ${list[@]:#*(a(ccoutrements|ppimage)|s(ha256sum|ig)|manifest|.sh|(sha1|md5)sums|sha256|md5|pkg|txt)(#e)} )
 
         # filter .apk packages if anbox present
         if (( $#list > 1 && ${+commands[anbox]} == 1 )) {
